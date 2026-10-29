@@ -37,3 +37,30 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Set up browser verification
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install test dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Select Chromium
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROMIUM_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "CHROMIUM_PATH=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Verify the public HTTPS game and 10 animated rolls
+        env:
+          PUBLIC_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: node tests/published.cjs
+      - name: Retain the public verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-site-verification
+          path: published-verification.json
+          if-no-files-found: ignore
