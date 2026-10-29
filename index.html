@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061d19">
+  <title>ДУМАЙ. ВІДЧУВАЙ. ДІЙ — інтерактивна гра</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js"}}</script>
+  <script type="module" src="game.js"></script>
+</head>
+<body>
+  <main class="scene" data-state="loading" aria-label="Авторська трансформаційна гра Думай. Відчувай. Дій">
+    <h1 class="sr-only">ДУМАЙ. ВІДЧУВАЙ. ДІЙ</h1>
+    <div class="artwork">
+    <img class="stage" src="assets/background-stage.svg" width="1536" height="1024" alt="Дівчина в білій сукні, гірський пейзаж із золотим сонячним світлом, центральний золотий трикутник, мармурова платформа та три символи зліва." fetchpriority="high">
+    <img class="number-die" src="assets/cube-number.svg" width="735" height="770" alt="Оригінальний мармуровий числовий кубик із золотими ребрами: на верхній грані 1">
+    <img class="sign-die" src="assets/cube-sign.svg" width="730" height="780" alt="Оригінальний мармуровий кубик знаків із золотими ребрами: на верхній грані плюс">
+    <div id="dice-viewport" class="dice-viewport" aria-label="Два мармурово-золоті 3D-кубики">
+      <span id="number-label" class="sr-only">Числовий кубик: 1</span>
+      <span id="sign-label" class="sr-only">Кубик знаків: +</span>
+    </div>
+    </div>
+    <div class="controls">
+    <button id="roll" class="roll" type="button" disabled aria-label="Завантаження кубиків">
+      <img src="assets/roll-panel.svg" width="1385" height="350" alt="Кинути кубики">
+    </button>
+    <div id="result" class="result" aria-label="Твій шлях — 1 крок, плюс">
+      <img src="assets/result-panel.svg" width="1870" height="345" alt="">
+      <span class="result-copy">Твій шлях — <strong>1</strong> крок</span>
+      <span class="result-sign" aria-hidden="true">+</span>
+    </div>
+    </div>
+    <p id="game-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true">Завантаження кубиків…</p>
+    <noscript><p class="game-error">Для кидка кубиків увімкніть JavaScript.</p></noscript>
+  </main>
+</body>
+</html>
